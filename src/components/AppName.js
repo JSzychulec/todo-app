@@ -12,7 +12,7 @@ export default styled.h1`
 	top: 15px;
 	transition: 1s;
 
-	@media (max-width: 600px) {
+	@media (max-width: ${props => props.theme.breakpoint}) {
 		color: ${props => props.expanded ? 'black' : 'white'};
 		left: 55px;
 	}

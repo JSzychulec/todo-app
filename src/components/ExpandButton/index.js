@@ -27,7 +27,7 @@ export default styled(ExpandButton)`
 		outline: none;
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: ${props => props.theme.breakpoint}) {
 		display: block;
 	}
 

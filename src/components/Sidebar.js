@@ -14,7 +14,7 @@ export default styled.aside`
 	opacity: 1;
 	transition: 1s;
 
-	@media (max-width: 600px) {
+	@media (max-width: ${props => props.theme.breakpoint}) {
 		box-shadow: ${props => !props.expanded && 'none'};
 		transform: ${props => !props.expanded && 'translateX(-100%)'}
 	}
