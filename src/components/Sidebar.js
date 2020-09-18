@@ -11,10 +11,12 @@ top: 0;
 left: 0;
 display: flex;
 flex-direction: column;
+opacity: 1;
+transition: 1s;
 
 	@media (max-width: 600px) {
-		box-shadow: ${props => props.expanded && '0px 0px 0px transparent'};
-		transform: ${props => props.expanded && 'translateX(-100%)'}
+		box-shadow: ${props => !props.expanded && 'none'};
+		transform: ${props => !props.expanded && 'translateX(-100%)'}
 	}
 
 `;
