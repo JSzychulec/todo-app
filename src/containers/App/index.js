@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import AppName from '../../components/AppName';
@@ -8,9 +8,13 @@ import GlobalStyle from '../../components/GlobalStyle';
 import Sidebar from '../../components/Sidebar';
 import TodoLists from '../../components/TodoLists';
 import useTodos from '../../hooks/useTodos';
+import Content from '../../components/Content';
+import TodoListPage from '../TodoListPage';
+import AddListButton from '../../components/AddListButton';
 
 const theme = {
   breakpoint: "1000px",
+  brandColor: "#3778c2"
 }
 
 function App() {
@@ -30,7 +34,15 @@ function App() {
         <AppName expanded={expanded}>TodoApp</AppName>
         <Sidebar expanded={expanded}>
           <TodoLists lists={state.data.lists} />
+          <AddListButton expanded={expanded} addList={addList} />
         </Sidebar>
+        <Switch>
+          <Content expanded={expanded}>
+            <Route to="/:id">
+              <TodoListPage />
+            </Route>
+          </Content>
+        </Switch>
       </Router>
     </ThemeProvider>
   </>
