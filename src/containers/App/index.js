@@ -12,6 +12,9 @@ import Content from '../../components/Content';
 import TodoListPage from '../TodoListPage';
 import AddListButton from '../../components/AddListButton';
 
+import Modals from '../Modals';
+import Modal from '../../components/Modal';
+
 const theme = {
   breakpoint: "1000px",
   brandColor: "#3778c2"
@@ -20,21 +23,35 @@ const theme = {
 function App() {
   const [state, dispatch] = useTodos();
   const [expanded, setExpanded] = useState(false);
+  const [modal, setModal] = useState(null);
   const switchExpanded = () => setExpanded(!expanded);
 
   const addList = (list) => {
     dispatch({ type: "ADD_LIST", payload: list })
   }
 
+  const openModal = (name) => {
+    return () => setModal(name);
+  }
+
+  const clearModal = () => setModal(null);
+
+  const renderModal = () => {
+    let Component = Modals[modal];
+    return <Component onUnderlayClick={clearModal} />
+  }
+  
   return <>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Router>
+        {modal && renderModal()}
+
         <ExpandButton expanded={expanded} onClick={switchExpanded} />
         <AppName expanded={expanded}>TodoApp</AppName>
         <Sidebar expanded={expanded}>
           <TodoLists lists={state.data.lists} />
-          <AddListButton expanded={expanded} addList={addList} />
+          <AddListButton expanded={expanded} onClick={openModal('AddList')} />
         </Sidebar>
         <Switch>
           <Content expanded={expanded}>

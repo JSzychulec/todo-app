@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Button from './Button';
 
-const AddListButton = ({ className }) => <Button className={className}>add list</Button>
+const AddListButton = ({ className, onClick }) => <Button onClick={onClick} className={className}>add list</Button>
 
 export default styled(AddListButton)`
 position: absolute;
