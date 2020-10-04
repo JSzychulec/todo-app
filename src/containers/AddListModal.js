@@ -6,8 +6,9 @@ import useTodos from '../hooks/useTodos';
 
 const UnstyledFormItem = ({ className, children, id, label, required }) => {
     return <div className={className}>
-        {label && <FormItemLabel for={id}>{label}{required && <RequiredIndicator />}</FormItemLabel>}
-
+        {label && (<FormItemLabel for={id}>
+            {label}{required && <RequiredIndicator />}
+        </FormItemLabel>)}
         {children}
     </div>
 }
@@ -35,10 +36,6 @@ const RequiredIndicator = styled(UnstyledRequiredIndicator)`
     margin-left: 5px;
 `;
 
-/**
- * @todo submit form on 'Enter' key press 
- */
-
 const AddListModal = ({ close, ...props }) => {
     const { addList } = useTodos();
     const [title, setTitle] = useState(null);
@@ -52,11 +49,15 @@ const AddListModal = ({ close, ...props }) => {
         close();
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') handleSubmit(e)
+    }
+
     return (
         <Modal title="Add a new todo list" close={close} {...props}>
             <form onSubmit={handleSubmit}>
                 <FormItem id="listtitle" required label="List title">
-                    <FormInput value={title} onChange={handleChange} id="listtitle" placeholder="My new list" />
+                    <FormInput onKeyDown={handleKeyDown} value={title} onChange={handleChange} id="listtitle" placeholder="My new list" />
                 </FormItem>
                 <FormItem>
                     <Button type="submit">Submit</Button>
