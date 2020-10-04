@@ -35,26 +35,28 @@ const RequiredIndicator = styled(UnstyledRequiredIndicator)`
     margin-left: 5px;
 `;
 
-const AddListModal = ({ ...props }) => {
-    const [state, dispatch] = useTodos();
-    const [name, setName] = useState(null);
+/**
+ * @todo submit form on 'Enter' key press 
+ */
 
-    const handleChange = (e) => setName(e.target.value)
+const AddListModal = ({ close, ...props }) => {
+    const { addList } = useTodos();
+    const [title, setTitle] = useState(null);
+
+    const handleChange = (e) => setTitle(e.target.value)
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch({ type: "ADD_LIST", payload: { title: name, id: Date.now() } })
+        addList(title);
+        setTitle(null);
+        close();
     }
 
-    useEffect(() => {
-        console.log('state changed')
-    }, [state])
-
     return (
-        <Modal title="Add a new todo list" {...props}>
-
+        <Modal title="Add a new todo list" close={close} {...props}>
             <form onSubmit={handleSubmit}>
-                <FormItem id="listname" required label="List name">
-                    <FormInput value={name} onChange={handleChange} id="listname" placeholder="My new list" />
+                <FormItem id="listtitle" required label="List title">
+                    <FormInput value={title} onChange={handleChange} id="listtitle" placeholder="My new list" />
                 </FormItem>
                 <FormItem>
                     <Button type="submit">Submit</Button>

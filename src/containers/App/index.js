@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -19,21 +19,13 @@ const theme = {
 }
 
 function App() {
-  const [state, dispatch] = useTodos();
+  const { lists } = useTodos();
   const [expanded, setExpanded] = useState(false);
   const [addListModal, setAddListModal] = useState(false);
   const switchExpanded = () => setExpanded(!expanded);
 
-  const addList = (list) => {
-    dispatch({ type: "ADD_LIST", payload: list })
-  }
-
   const openAddListModal = () => setAddListModal(true);
   const closeAddListModal = () => setAddListModal(false);
-
-  useEffect(() => {
-    console.log('app rerendered')
-  })
 
   return <>
     <ThemeProvider theme={theme}>
@@ -43,7 +35,7 @@ function App() {
         <ExpandButton expanded={expanded} onClick={switchExpanded} />
         <AppName expanded={expanded}>TodoApp</AppName>
         <Sidebar expanded={expanded}>
-          <TodoLists lists={state.data.lists} />
+          <TodoLists lists={lists} />
           <AddListButton expanded={expanded} onClick={openAddListModal} />
         </Sidebar>
         <Switch>

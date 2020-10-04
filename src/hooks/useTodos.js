@@ -1,115 +1,55 @@
-import { useReducer, useEffect } from 'react'
+import { useContext, useEffect } from "react"
+import { TodosContext } from "../providers/Todos";
 
-/**
- * @todo separate validators from reducer
- * @todo create an error property in object to show those errors to the user on for example failed validation.
- */
-
-const reducer = (state, action) => {
-	switch (action.type) {
-		case "ADD_TODO":
-
-			if (!action.payload.title) return state; // Todo doesn't have title.
-			if (typeof action.payload.title !== 'string') return state; // Todo's title isn't a String.
-			if (!action.payload.id) return state; // Todo doesn't have id.
-			if (typeof action.payload.id !== 'number') return state; // Todo's id isn't a Number.
-			if (state.data.todos.filter(({ id }) => id === action.payload.id).length > 0) return state; // Todo with this id already exists.
-			if (!action.payload.list) return state; // Todo doesn't have a list it belongs to.
-			if (typeof action.payload.list !== 'number') return state; // Todo's list isn't a Number (which it has to be since it's just an id pointer to a list).
-			/** @todo validate title - ensure it contains at least one alphanumeric character */
-
-			let newTodo = {
-				id: action.payload.id,
-				title: action.payload.title.trim(),
-				list: action.payload.list,
-				completed: false,
-			};
-
-			return {
-				...state,
-				data: {
-					...state.data,
-					todos: [...state.data.todos, { ...newTodo }]
-				}
-			};
-
-		case "TOGGLE_TODO":
-			return {
-				...state,
-				data: {
-					...state.data,
-					todos: state.data.todos.map((todo) => {
-						if (todo.id === action.payload) return { ...todo, completed: !todo.completed }
-						return todo;
-					})
-				}
-			};
-
-		case "REMOVE_TODO":
-			return {
-				...state,
-				data: {
-					...state.data,
-					todos: state.data.todos.filter((todo) => todo.id !== action.payload)
-				}
-			};
-
-		case "ADD_LIST":
-			let newList = {
-				id: action.payload.id,
-				title: action.payload.title,
-			};
-
-			return {
-				...state,
-				data: {
-					...state.data,
-					lists: [...state.data.lists, { ...newList }]
-				}
-			};
-
-		case "REMOVE_LIST":
-			return {
-				...state,
-				data: {
-					...state.data,
-					todos: state.data.todos.filter((todo) => todo.list !== action.payload),
-					lists: state.data.lists.filter((list) => list.id !== action.payload)
-				}
-			};
-
-		default:
-			return state;
-	}
-}
-
-const initialState = JSON.parse(localStorage.getItem('todos')) || {
-	data: {
-		lists: [
-			{
-				id: 0,
-				title: 'My list',
-			}
-		],
-		todos: [
-			{
-				id: 0,
-				title: 'Example todo',
-				completed: false,
-				list: 0
-			}
-		]
-	}
-};
-
-const useTodos = () => {
-	const [state, dispatch] = useReducer(reducer, initialState);
-
+export default () => {
+	const [state, dispatch] = useContext(TodosContext)
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(state));
 	}, [state])
+	/**
+	 * @param {string} title New list title
+	 * @param {number} listId Id of a list to put new todo in.
+	 */
+	const addTodo = (title, listId) => {
+		dispatch({ type: "ADD_TODO", payload: { title, listId, id: Date.now() } })
+	};
 
-	return [state, dispatch];
+	/**
+	 * @param {number} id Id of a todo to toggle completion state
+	 */
+	const toggleTodo = (id) => {
+		dispatch({ type: "TOGGLE_TODO", payload: { id } })
+	};
+
+	/**
+	 * @param {number} id Id of a todo to remove
+	 */
+	const removeTodo = (id) => {
+		dispatch({ type: "REMOVE_TODO", payload: { id } })
+	};
+
+	/**
+	 * @param {string} title New list title
+	 */
+	const addList = (title) => {
+		dispatch({ type: "ADD_LIST", payload: { title, id: Date.now() } })
+	};
+
+	/**
+	 * @param {number} id Id of a list to remove
+	 */
+	const removeList = (id) => {
+		dispatch({ type: "REMOVE_LIST", payload: { id } })
+	};
+
+	return {
+		lists: state.data.lists,
+		todos: state.data.todos,
+		addTodo,
+		toggleTodo,
+		removeTodo,
+		addList,
+		removeList
+	}
+
 }
-
-export default useTodos;
