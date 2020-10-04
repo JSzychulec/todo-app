@@ -6,7 +6,7 @@ const TodoLists = ({ lists, className }) => {
 	return (
 		<ul className={className}>
 			{lists.map(list => {
-				return <Item list={list} />
+				return <Item key={list.id} list={list} />
 			})}
 		</ul>
 	)

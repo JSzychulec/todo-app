@@ -5,7 +5,7 @@ export default styled.button`
 	background: ${props => props.theme.brandColor};
 	border: 2px solid transparent;			
 	color: white;
-	padding: 6px;
+	padding: 4px;
 	border-radius: 5px;
 	cursor: pointer;
 	font-family: sans-serif;

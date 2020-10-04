@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -11,9 +11,7 @@ import useTodos from '../../hooks/useTodos';
 import Content from '../../components/Content';
 import TodoListPage from '../TodoListPage';
 import AddListButton from '../../components/AddListButton';
-
-import Modals from '../Modals';
-import Modal from '../../components/Modal';
+import AddListModal from '../../containers/AddListModal';
 
 const theme = {
   breakpoint: "1000px",
@@ -23,35 +21,30 @@ const theme = {
 function App() {
   const [state, dispatch] = useTodos();
   const [expanded, setExpanded] = useState(false);
-  const [modal, setModal] = useState(null);
+  const [addListModal, setAddListModal] = useState(false);
   const switchExpanded = () => setExpanded(!expanded);
 
   const addList = (list) => {
     dispatch({ type: "ADD_LIST", payload: list })
   }
 
-  const openModal = (name) => {
-    return () => setModal(name);
-  }
+  const openAddListModal = () => setAddListModal(true);
+  const closeAddListModal = () => setAddListModal(false);
 
-  const clearModal = () => setModal(null);
+  useEffect(() => {
+    console.log('app rerendered')
+  })
 
-  const renderModal = () => {
-    let Component = Modals[modal];
-    return <Component onUnderlayClick={clearModal} />
-  }
-  
   return <>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Router>
-        {modal && renderModal()}
-
+        {addListModal && <AddListModal close={closeAddListModal} />}
         <ExpandButton expanded={expanded} onClick={switchExpanded} />
         <AppName expanded={expanded}>TodoApp</AppName>
         <Sidebar expanded={expanded}>
           <TodoLists lists={state.data.lists} />
-          <AddListButton expanded={expanded} onClick={openModal('AddList')} />
+          <AddListButton expanded={expanded} onClick={openAddListModal} />
         </Sidebar>
         <Switch>
           <Content expanded={expanded}>
