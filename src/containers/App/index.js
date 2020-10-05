@@ -22,6 +22,7 @@ function App() {
   const { lists } = useTodos();
   const [expanded, setExpanded] = useState(false);
   const [addListModal, setAddListModal] = useState(false);
+
   const switchExpanded = () => setExpanded(!expanded);
 
   const openAddListModal = () => setAddListModal(true);

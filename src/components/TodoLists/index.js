@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Item from './Item';
 
-const TodoLists = ({ lists, className }) => {
+/**
+ * @todo move it to containers since it's stateful now. 
+ */
+
+const TodoLists = ({ lists, className, location }) => {
+	const currentListRef = useRef(null);
+
+	useEffect(() => {
+		if (currentListRef.current) {
+			currentListRef.current.scrollIntoView();
+		}
+	})
 
 	return (
 		<ul className={className}>
 			{lists.map(list => {
+				if (`/${list.id}` == location.pathname) {
+					return <Item currentListRef={currentListRef} key={list.id} list={list} />
+				}
 				return <Item key={list.id} list={list} />
 			})}
 		</ul>
@@ -17,7 +32,7 @@ const TodoLists = ({ lists, className }) => {
  * @todo Scrollbar's track is covering sidebar's item background on hover - find a way to make it more esthetic. (possibly hide scrollbar when it's not necessary)
  */
 
-export default styled(TodoLists)`
+export default withRouter(styled(TodoLists)`
 	margin: 0;
 	margin-top: 50px;
 	padding: 0;
@@ -66,4 +81,4 @@ export default styled(TodoLists)`
 		background: transparent;
 	}
 
-`;	
+`);

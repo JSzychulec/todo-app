@@ -1,4 +1,3 @@
-import useTodos from "../hooks/useTodos";
 import TodosReducer from "../reducers/todos";
 import React, { createContext, useReducer } from "react";
 

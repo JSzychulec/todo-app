@@ -2,9 +2,9 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Item = ({ list, className }) => {
+const Item = ({ list, className, currentListRef }) => {
 	return (
-		<li><NavLink className={className} to={`/${list.id}`}>{list.title}</NavLink></li>
+		<li ref={currentListRef}><NavLink className={className} to={`/${list.id}`}>{list.title}</NavLink></li>
 	)
 }
 
