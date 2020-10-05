@@ -32,7 +32,9 @@ export default () => {
 	 * @param {string} title New list title
 	 */
 	const addList = (title) => {
-		dispatch({ type: "ADD_LIST", payload: { title, id: Date.now() } })
+		const id = Date.now()
+		dispatch({ type: "ADD_LIST", payload: { title, id } })
+		return id;
 	};
 
 	/**

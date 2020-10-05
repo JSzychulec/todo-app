@@ -5,7 +5,7 @@ import FormRequiredIndicator from './FormRequiredIndicator';
 
 const FormItem = ({ className, children, id, label, required }) => {
 	return <div className={className}>
-		{label && (<FormLabel for={id}>
+		{label && (<FormLabel htmlFor={id}>
 			{label}{required && <FormRequiredIndicator />}
 		</FormLabel>)}
 		{children}

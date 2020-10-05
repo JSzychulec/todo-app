@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import Button from '../components/Button';
 import FormInput from '../components/Form/FormInput';
 import FormItem from '../components/Form/FormItem';
@@ -7,23 +8,30 @@ import useTodos from '../hooks/useTodos';
 
 const AddListModal = ({ close, ...props }) => {
     const { addList } = useTodos();
-    const [title, setTitle] = useState(null);
+    const [title, setTitle] = useState("");
+    const [newListId, setNewListId] = useState(null);
 
     const handleChange = (e) => setTitle(e.target.value)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addList(title);
+        setNewListId(addList(title));
         setTitle(null);
-        close();
     }
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') handleSubmit(e)
     }
 
+    useEffect(() => {
+        if (newListId) close();
+    }, [newListId])
+
+
+
     return (
         <Modal title="Add a new todo list" close={close} {...props}>
+            {newListId && <Redirect to={`/${newListId}`}></Redirect>}
             <form onSubmit={handleSubmit}>
                 <FormItem id="listtitle" required label="List title">
                     <FormInput onKeyDown={handleKeyDown} value={title} onChange={handleChange} id="listtitle" placeholder="My new list" />
