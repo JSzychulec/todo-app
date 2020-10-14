@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react"
 import { TodosContext } from "../providers/Todos";
+import getRandomListImage from "../utils/getRandomListImage";
 
 export default () => {
 	const [state, dispatch] = useContext(TodosContext)
@@ -31,9 +32,10 @@ export default () => {
 	/**
 	 * @param {string} title New list title
 	 */
-	const addList = (title) => {
+	const addList = async (title) => {
 		const id = Date.now()
-		dispatch({ type: "ADD_LIST", payload: { title, id } })
+		const image = await getRandomListImage();
+		dispatch({ type: "ADD_LIST", payload: { title, id, image } })
 		return id;
 	};
 

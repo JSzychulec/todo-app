@@ -51,6 +51,7 @@ export default (state, action) => {
 			let newList = {
 				id: action.payload.id,
 				title: action.payload.title,
+				image: action.payload.image
 			};
 
 			return {

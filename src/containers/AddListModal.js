@@ -13,9 +13,10 @@ const AddListModal = ({ close, ...props }) => {
 
     const handleChange = (e) => setTitle(e.target.value)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setNewListId(addList(title));
+        const listId = await addList(title);
+        setNewListId(listId)
         setTitle(null);
     }
 
