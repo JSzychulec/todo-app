@@ -17,7 +17,6 @@ const AddListModal = ({ close, ...props }) => {
         e.preventDefault();
         const listId = await addList(title);
         setNewListId(listId)
-        setTitle(null);
     }
 
     const handleKeyDown = (e) => {
