@@ -14,41 +14,41 @@ import AddListButton from '../../components/AddListButton';
 import AddListModal from '../../containers/AddListModal';
 
 const theme = {
-  breakpoint: "1000px",
-  brandColor: "#3778c2"
+	breakpoint: "1000px",
+	brandColor: "#3778c2"
 }
 
 function App() {
-  const { lists } = useTodos();
-  const [expanded, setExpanded] = useState(false);
-  const [addListModal, setAddListModal] = useState(false);
+	const { lists } = useTodos();
+	const [expanded, setExpanded] = useState(false);
+	const [addListModal, setAddListModal] = useState(false);
 
-  const switchExpanded = () => setExpanded(!expanded);
+	const switchExpanded = () => setExpanded(!expanded);
 
-  const openAddListModal = () => setAddListModal(true);
-  const closeAddListModal = () => setAddListModal(false);
+	const openAddListModal = () => setAddListModal(true);
+	const closeAddListModal = () => setAddListModal(false);
 
-  return <>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Router>
-        {addListModal && <AddListModal close={closeAddListModal} />}
-        <ExpandButton expanded={expanded} onClick={switchExpanded} />
-        <AppName expanded={expanded}>TodoApp</AppName>
-        <Sidebar expanded={expanded}>
-          <TodoLists lists={lists} />
-          <AddListButton expanded={expanded} onClick={openAddListModal} />
-        </Sidebar>
-        <Switch>
-          <Content expanded={expanded}>
-            <Route to="/:id">
-              <TodoListPage />
-            </Route>
-          </Content>
-        </Switch>
-      </Router>
-    </ThemeProvider>
-  </>
+	return <>
+		<ThemeProvider theme={theme}>
+			<GlobalStyle />
+			<Router>
+				{addListModal && <AddListModal close={closeAddListModal} />}
+				<ExpandButton expanded={expanded} onClick={switchExpanded} />
+				<AppName expanded={expanded}>TodoApp</AppName>
+				<Sidebar expanded={expanded}>
+					<TodoLists lists={lists} />
+					<AddListButton expanded={expanded} onClick={openAddListModal} />
+				</Sidebar>
+				<Switch>
+					<Content expanded={expanded}>
+						<Route to="/:id">
+							<TodoListPage />
+						</Route>
+					</Content>
+				</Switch>
+			</Router>
+		</ThemeProvider>
+	</>
 }
 
 export default App;

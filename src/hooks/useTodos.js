@@ -4,9 +4,11 @@ import getRandomListImage from "../utils/getRandomListImage";
 
 export default () => {
 	const [state, dispatch] = useContext(TodosContext)
+
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(state));
 	}, [state])
+
 	/**
 	 * @param {string} title New list title
 	 * @param {number} listId Id of a list to put new todo in.

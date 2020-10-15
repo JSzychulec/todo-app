@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import React from 'react';
-
 import Icon from './Icon';
 
-//@TODO Fix outline on focus
+/**
+ *  @todo Fix outline on focus
+*/
 
 const ExpandButton = ({ className, onClick, expanded }) => {
 	return (

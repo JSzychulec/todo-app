@@ -7,41 +7,39 @@ import Modal from '../components/Modal';
 import useTodos from '../hooks/useTodos';
 
 const AddListModal = ({ close, ...props }) => {
-    const { addList } = useTodos();
-    const [title, setTitle] = useState("");
-    const [newListId, setNewListId] = useState(null);
+	const { addList } = useTodos();
+	const [title, setTitle] = useState("");
+	const [newListId, setNewListId] = useState(null);
 
-    const handleChange = (e) => setTitle(e.target.value)
+	const handleChange = (e) => setTitle(e.target.value)
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const listId = await addList(title);
-        setNewListId(listId)
-    }
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const listId = await addList(title);
+		setNewListId(listId)
+	}
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') handleSubmit(e)
-    }
+	const handleKeyDown = (e) => {
+		if (e.key === 'Enter') handleSubmit(e)
+	}
 
-    useEffect(() => {
-        if (newListId) close();
-    }, [newListId])
+	useEffect(() => {
+		if (newListId) close();
+	}, [newListId])
 
-
-
-    return (
-        <Modal title="Add a new todo list" close={close} {...props}>
-            {newListId && <Redirect to={`/${newListId}`}></Redirect>}
-            <form onSubmit={handleSubmit}>
-                <FormItem id="listtitle" required label="List title">
-                    <FormInput onKeyDown={handleKeyDown} value={title} onChange={handleChange} id="listtitle" placeholder="My new list" />
-                </FormItem>
-                <FormItem>
-                    <Button type="submit">Submit</Button>
-                </FormItem>
-            </form>
-        </Modal>
-    )
+	return (
+		<Modal title="Add a new todo list" close={close} {...props}>
+			{newListId && <Redirect to={`/${newListId}`}></Redirect>}
+			<form onSubmit={handleSubmit}>
+				<FormItem id="listtitle" required label="List title">
+					<FormInput onKeyDown={handleKeyDown} value={title} onChange={handleChange} id="listtitle" placeholder="My new list" />
+				</FormItem>
+				<FormItem>
+					<Button type="submit">Submit</Button>
+				</FormItem>
+			</form>
+		</Modal>
+	)
 }
 
 export default AddListModal
