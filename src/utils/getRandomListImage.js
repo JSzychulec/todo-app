@@ -1,4 +1,4 @@
 export default async () => {
-	const { uri } = await fetch("https://picsum.photos/1920/600");
-	return uri
+	const { url } = await fetch("https://picsum.photos/1920/600");
+	return url
 }
