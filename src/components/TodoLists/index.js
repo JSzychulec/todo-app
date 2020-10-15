@@ -12,7 +12,7 @@ const TodoLists = ({ lists, className, location }) => {
 
 	useEffect(() => {
 		if (currentListRef.current) {
-			currentListRef.current.scrollIntoView({ behavior: "smooth" });
+			currentListRef.current.scrollIntoView({ block: "nearest", behavior: "smooth" });
 		}
 	})
 
