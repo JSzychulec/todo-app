@@ -23,6 +23,7 @@ export default styled(ExpandButton)`
 	background: none;
 	border: none;
 	display: none;
+	cursor: pointer;
 
 	&:focus{
 		outline: none;
