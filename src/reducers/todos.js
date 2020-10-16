@@ -32,7 +32,7 @@ export default (state, action) => {
 				data: {
 					...state.data,
 					todos: state.data.todos.map((todo) => {
-						if (todo.id === action.payload) return { ...todo, completed: !todo.completed }
+						if (todo.id === action.payload.id) return { ...todo, completed: !todo.completed }
 						return todo;
 					})
 				}
@@ -43,7 +43,7 @@ export default (state, action) => {
 				...state,
 				data: {
 					...state.data,
-					todos: state.data.todos.filter((todo) => todo.id !== action.payload)
+					todos: state.data.todos.filter((todo) => todo.id !== action.payload.id)
 				}
 			};
 
@@ -63,12 +63,14 @@ export default (state, action) => {
 			};
 
 		case "REMOVE_LIST":
+			console.log('hello')
+			console.log(action.payload)
 			return {
 				...state,
 				data: {
 					...state.data,
-					todos: state.data.todos.filter((todo) => todo.list !== action.payload),
-					lists: state.data.lists.filter((list) => list.id !== action.payload)
+					todos: state.data.todos.filter((todo) => todo.list !== action.payload.id),
+					lists: state.data.lists.filter((list) => list.id !== action.payload.id)
 				}
 			};
 
