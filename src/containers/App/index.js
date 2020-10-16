@@ -12,6 +12,7 @@ import Content from '../../components/Content';
 import TodoListPage from '../TodoListPage';
 import AddListButton from '../../components/AddListButton';
 import AddListModal from '../AddListModal';
+import Underlay from '../../components/Underlay';
 
 const theme = {
 	breakpoint: "800px",
@@ -24,7 +25,7 @@ function App() {
 	const [addListModal, setAddListModal] = useState(false);
 
 	const switchExpanded = () => setExpanded(!expanded);
-
+	const retract = () => setExpanded(false);
 	const openAddListModal = () => setAddListModal(true);
 	const closeAddListModal = () => setAddListModal(false);
 
@@ -33,6 +34,7 @@ function App() {
 			<GlobalStyle />
 			<Router>
 				{addListModal && <AddListModal close={closeAddListModal} />}
+				{expanded && <Underlay onMouseDown={retract} zIndex={50} />}
 				<ExpandButton expanded={expanded} onClick={switchExpanded} />
 				<AppName expanded={expanded}>TodoApp</AppName>
 				<Sidebar expanded={expanded}>

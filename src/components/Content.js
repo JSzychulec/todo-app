@@ -5,7 +5,7 @@ export default styled.main`
 	transition: 1s;
 		
 	@media (max-width: ${props => props.theme.breakpoint}){
-		margin-left: ${props => props.expanded ? '250px' : '0px'};
+		margin-left: 0px;
 	}
 
 `;

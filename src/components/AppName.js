@@ -6,7 +6,7 @@ export default styled.h1`
 	font-family: sans-serif;
 	font-weight: 400;
 	position: absolute;
-	z-index: 1;
+	z-index: 92;
 	margin: 0;
 	left: 15px;
 	top: 15px;

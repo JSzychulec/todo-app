@@ -17,7 +17,7 @@ const ExpandButton = ({ className, onClick, expanded }) => {
 
 export default styled(ExpandButton)`
 	position: fixed;
-	z-index: 1;
+	z-index: 92;
 	top: 10px;
 	left: 10px;
 	background: none;

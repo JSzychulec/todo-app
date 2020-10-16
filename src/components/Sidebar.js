@@ -13,6 +13,7 @@ export default styled.aside`
 	flex-direction: column;
 	opacity: 1;
 	transition: 1s;
+	z-index: 91;
 
 	@media (max-width: ${props => props.theme.breakpoint}) {
 		box-shadow: ${props => !props.expanded && 'none'};

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CloseButton from './CloseButton';
 import Header from './Header';
 import Title from './Title';
-import Underlay from './Underlay';
+import Underlay from '../Underlay';
 
 const Modal = ({ className, children, close, title }) => {
 	const stopPropagation = (e) => e.stopPropagation();
