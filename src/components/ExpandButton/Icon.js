@@ -5,7 +5,7 @@ import menuIcon from '../../assets/menu-24px.svg';
 import closeIcon from '../../assets/close-24px.svg';
 
 const Icon = ({ className, close, open }) => {
-	return <img className={className} src={open ? menuIcon : close ? closeIcon : null} />
+	return <img alt="" className={className} src={open ? menuIcon : close ? closeIcon : null} />
 }
 
 export default styled(Icon)`

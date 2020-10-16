@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Redirect, useParams } from 'react-router-dom';
 import useTodos from '../../hooks/useTodos';
@@ -44,7 +44,7 @@ const Header = styled(UnstyledHeader)`
 `;
 
 const UnstyledRemoveListButton = ({ className, onClick }) => {
-	return <button onClick={onClick} className={className}><img src={deleteIcon}></img></button>
+	return <button onClick={onClick} className={className}><img alt="" src={deleteIcon}></img></button>
 }
 
 const RemoveListButton = styled(UnstyledRemoveListButton)`

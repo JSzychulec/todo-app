@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Button from '../components/Button';
-import FormInput from '../components/Form/FormInput';
 import FormItem from '../components/Form/FormItem';
 import Modal from '../components/Modal';
 import P from '../components/P';
