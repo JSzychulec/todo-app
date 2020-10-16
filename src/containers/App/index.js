@@ -11,10 +11,10 @@ import useTodos from '../../hooks/useTodos';
 import Content from '../../components/Content';
 import TodoListPage from '../TodoListPage';
 import AddListButton from '../../components/AddListButton';
-import AddListModal from '../../containers/AddListModal';
+import AddListModal from '../AddListModal';
 
 const theme = {
-	breakpoint: "1000px",
+	breakpoint: "800px",
 	brandColor: "#3778c2"
 }
 
@@ -41,7 +41,7 @@ function App() {
 				</Sidebar>
 				<Switch>
 					<Content expanded={expanded}>
-						<Route to="/:id">
+						<Route path="/:id">
 							<TodoListPage />
 						</Route>
 					</Content>
